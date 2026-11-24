@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://sicibinaga.my.id https://www.sicibinaga.my.id https://*.vercel.app"
+        }
+      ]
+    }
+  ]
+}

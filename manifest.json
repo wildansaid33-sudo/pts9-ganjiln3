@@ -1,0 +1,23 @@
+{
+  "name": "SICIBINAGA Kelas 9 \u2022 SMPN 3 Bangil",
+  "short_name": "SICIBINAGA K9",
+  "description": "Portal Resmi SICIBINAGA Kelas 9 (9A\u20139H \u2014 Crimson Red (TKA Ready)) UPTD SMP Negeri 3 Bangil.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#881337",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "logo-sicibinaga.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

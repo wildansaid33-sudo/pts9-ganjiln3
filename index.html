@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>SICIBINAGA Kelas 9 • TKA Ready — SMPN 3 Bangil</title>
+  <meta name="description" content="Portal Resmi SICIBINAGA Kelas 9 (9A–9H — Crimson Red (TKA Ready)) UPTD SMP Negeri 3 Bangil." />
+  <meta name="theme-color" content="#881337" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="logo-sicibinaga.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --outer-forest: #0d4738;
+      --brand-orange: #f26b0a;
+      --grade-primary: #dc2626;
+      --grade-dark: #881337;
+      --grade-grad: linear-gradient(135deg, #881337 0%, #dc2626 55%, #e11d48 100%);
+      --grade-pill-bg: #fee2e2;
+      --grade-pill-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--grade-dark);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overscroll-behavior: auto;
+    }
+
+    /* IFRAME UTAMA GAS — 100% BERSIH TANPA TOMBOL MELAYANG, LANCAR DI HP & TOUCHPAD */
+    #sicibinaga-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #f6f5f0;
+      touch-action: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* SPLASH PRELOADER BENTO SUPERAPP (HILANG OTOMATIS SAAT APLIKASI SIAP) */
+    .sici-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: radial-gradient(circle at 80% 15%, rgba(242, 107, 10, 0.25) 0%, transparent 45%), var(--grade-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .sici-splash.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .sici-splash-card {
+      width: 100%;
+      max-width: 390px;
+      background: #f6f5f0;
+      border-radius: 28px;
+      border: 4px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.38);
+      padding: 28px 24px 24px 24px;
+      text-align: center;
+    }
+    .sici-splash-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .sici-splash-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 2.5px solid var(--brand-orange);
+      box-shadow: 0 8px 18px rgba(242, 107, 10, 0.25);
+    }
+    .sici-splash-wordmark {
+      font-family: 'Fredoka', 'Space Grotesk', sans-serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--brand-orange);
+      letter-spacing: 0.4px;
+      line-height: 1;
+      text-align: left;
+    }
+    .sici-splash-tka {
+      display: inline-block;
+      margin-top: 5px;
+      background: #046c4e;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .sici-splash-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .sici-grade-pill {
+      background: var(--grade-pill-bg);
+      color: var(--grade-pill-text);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+    .sici-rombel-pill {
+      background: #fff3e8;
+      color: #ea580c;
+      border: 1px solid #fdba74;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 11px;
+      border-radius: 999px;
+      display: none;
+    }
+    .sici-rombel-pill.show {
+      display: inline-block;
+    }
+    .sici-loader-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .sici-loader-bar {
+      width: 42%;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--grade-grad);
+      animation: siciLoadSlide 1.25s infinite ease-in-out;
+    }
+    @keyframes siciLoadSlide {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(115%); }
+      100% { transform: translateX(250%); }
+    }
+    .sici-splash-status {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #374151;
+    }
+    .sici-splash-sub {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .sici-splash-fallback {
+      margin-top: 14px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sici-splash-fallback.show {
+      display: flex;
+    }
+    .sici-fallback-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: var(--grade-primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* POP-UP KONFIRMASI SAAT TOMBOL BACK / GESTURE BACK ANDROID DITEKAN */
+    .sici-exit-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(4, 22, 17, 0.76);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      pointer-events: none;
+    }
+    .sici-exit-backdrop.active {
+      display: flex;
+      pointer-events: auto;
+    }
+    .sici-exit-card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 26px 22px 20px 22px;
+      text-align: center;
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.42);
+      border: 2px solid #ecebe6;
+    }
+    .sici-exit-icon {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 12px auto;
+      border-radius: 18px;
+      background: var(--grade-grad);
+      color: #ffffff;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+    }
+    .sici-exit-icon.is-exam {
+      background: linear-gradient(135deg, #e11d48, #f26b0a);
+    }
+    .sici-exit-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18.5px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    .sici-exit-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--grade-pill-bg);
+      color: var(--grade-pill-text);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .sici-exit-card p {
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .sici-exit-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .sici-btn-stay {
+      width: 100%;
+      min-height: 48px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #046c4e, #059669);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      touch-action: manipulation;
+      box-shadow: 0 8px 20px rgba(4, 108, 78, 0.28);
+    }
+    .sici-btn-leave {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 13px;
+      border: 1.5px solid #fecdd3;
+      background: #fff1f2;
+      color: #be123c;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      touch-action: manipulation;
+    }
+    .sici-btn-leave:hover {
+      background: #e11d48;
+      color: #ffffff;
+      border-color: #e11d48;
+    }
+    .sici-btn-leave.hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 520px) {
+      .sici-exit-backdrop {
+        align-items: flex-end;
+        padding: 14px 12px calc(16px + env(safe-area-inset-bottom, 0px)) 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. SPLASH PRELOADER BENTO SUPERAPP (HILANG OTOMATIS SAAT GAS SIAP) -->
+  <div class="sici-splash" id="siciSplash">
+    <div class="sici-splash-card">
+      <div class="sici-splash-logo-row">
+        <img src="logo-sicibinaga.png" alt="Logo SICIBINAGA" class="sici-splash-logo" />
+        <div>
+          <div class="sici-splash-wordmark">SICIBINAGA</div>
+          <span class="sici-splash-tka">TKA READY • SMPN 3 BANGIL</span>
+        </div>
+      </div>
+      <div class="sici-splash-pills">
+        <span class="sici-grade-pill">Kelas 9 • Crimson Red (TKA Ready)</span>
+        <span class="sici-rombel-pill" id="splashRombelChip">Rombel</span>
+      </div>
+      <div class="sici-loader-track">
+        <div class="sici-loader-bar"></div>
+      </div>
+      <div class="sici-splash-status" id="splashStatusText">Menghubungkan ke Portal Kelas 9...</div>
+      <div class="sici-splash-sub" id="splashSubText">Menyiapkan LMS 5 Langkah, CBT Anti-Cheat &amp; Live Arena</div>
+      <div class="sici-splash-fallback" id="splashFallbackBox">
+        <a href="#" id="splashDirectLink" class="sici-fallback-btn" target="_self">
+          <i class="fa-solid fa-bolt"></i> Buka Langsung Portal Kelas 9
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. IFRAME APLIKASI GAS KELAS 9 (100% BERSIH TANPA TOMBOL MELAYANG) -->
+  <iframe
+    id="sicibinaga-frame"
+    src="about:blank"
+    scrolling="yes"
+    allow="fullscreen; microphone; camera; autoplay; clipboard-read; clipboard-write"
+    allowfullscreen
+    title="SICIBINAGA Kelas 9 — SMPN 3 Bangil">
+  </iframe>
+
+  <!-- 3. POP-UP KONFIRMASI MENINGGALKAN SICIBINAGA (ANDROID BACK / GESTURE GUARD) -->
+  <div class="sici-exit-backdrop" id="siciWrapperExitModal" role="dialog" aria-modal="true" onclick="if(event.target===this) stayInsideWrapperApp()">
+    <div class="sici-exit-card">
+      <div class="sici-exit-icon" id="wrapExitIcon">
+        <i class="fa-solid fa-shield-halved" id="wrapExitGlyph"></i>
+      </div>
+      <h3 id="wrapExitTitle">Ingin Keluar dari Akun SICIBINAGA?</h3>
+      <div class="sici-exit-chip" id="wrapExitChip">Kelas 9 • Sesi Aktif</div>
+      <p id="wrapExitDesc">Anda menekan tombol <b>Kembali</b> atau <b>Gesture Back</b>. Sesi Anda masih aktif &mdash; pilih <b>Tetap di SICIBINAGA</b> agar fokus terjaga dan tidak perlu login ulang.</p>
+      <div class="sici-exit-actions">
+        <button type="button" class="sici-btn-stay" onclick="stayInsideWrapperApp()">
+          <i class="fa-solid fa-circle-check"></i> <span id="wrapStayLabel">Tetap di SICIBINAGA Kelas 9</span>
+        </button>
+        <button type="button" class="sici-btn-leave" id="wrapLeaveBtn" onclick="logoutFromWrapperPopup()">
+          <i class="fa-solid fa-right-from-bracket"></i> <span>Ya, Logout ke Halaman Login Kelas 9</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // KONFIGURASI UTAMA WRAPPER SICIBINAGA KELAS 9 (V100-V2 CLEAN — TANPA TOMBOL DASHBOARD UTAMA)
+    // WAJIB GANTI URL DI BAWAH DENGAN URL WEB APP GAS (/exec) KELAS 9 ANDA!
+    // =========================================================================
+    const GAS_WEB_APP_URL = 'ISI_URL_WEB_APP_GAS_KELAS_9_DISINI';
+    const GRADE_LEVEL = '9';
+
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const rombelParam = (params.get('rombel') || '').trim().toUpperCase();
+      const userParam = (params.get('user') || '').trim();
+      const themeParam = (params.get('theme') || '').trim();
+      const isEmbeddedInDashboard = params.get('embedded') === '1' || (window.self !== window.top);
+
+      let appState = {
+        loggedIn: false,
+        isExamActive: false,
+        role: 'GUEST',
+        name: '',
+        kelas: rombelParam
+      };
+      let seq = 1;
+
+      const frame = document.getElementById('sicibinaga-frame');
+      const splash = document.getElementById('siciSplash');
+      const rombelChip = document.getElementById('splashRombelChip');
+      const statusText = document.getElementById('splashStatusText');
+      const subText = document.getElementById('splashSubText');
+      const fallbackBox = document.getElementById('splashFallbackBox');
+      const directLink = document.getElementById('splashDirectLink');
+
+      if (rombelParam && rombelChip) {
+        rombelChip.textContent = 'Rombel ' + rombelParam;
+        rombelChip.classList.add('show');
+      }
+
+      function hideSplash() {
+        if (splash && !splash.classList.contains('fade-out')) {
+          splash.classList.add('fade-out');
+        }
+      }
+
+      function pushTopCushion(fresh) {
+        if (isEmbeddedInDashboard) return;
+        try {
+          if (fresh) {
+            history.replaceState({ siciWrap: true, grade: GRADE_LEVEL, seq: ++seq }, '');
+            history.pushState({ siciWrap: true, grade: GRADE_LEVEL, seq: ++seq }, '');
+          } else {
+            history.pushState({ siciWrap: true, grade: GRADE_LEVEL, seq: ++seq }, '');
+          }
+        } catch (e) {}
+      }
+
+      if (!GAS_WEB_APP_URL || GAS_WEB_APP_URL.indexOf('ISI_URL_WEB_APP_GAS') !== -1) {
+        if (statusText) statusText.textContent = 'URL Web App GAS Kelas ' + GRADE_LEVEL + ' Belum Diisi';
+        if (subText) subText.textContent = 'Buka index.html wrapper ini, lalu ganti GAS_WEB_APP_URL dengan URL /exec proyek GAS Kelas ' + GRADE_LEVEL + '.';
+        return;
+      }
+
+      const targetParams = new URLSearchParams();
+      if (rombelParam) targetParams.set('rombel', rombelParam);
+      if (userParam) targetParams.set('user', userParam);
+      if (themeParam) targetParams.set('theme', themeParam);
+      targetParams.set('source', 'sicibinaga_wrapper');
+
+      const sep = GAS_WEB_APP_URL.indexOf('?') !== -1 ? '&' : '?';
+      const finalGasUrl = GAS_WEB_APP_URL + sep + targetParams.toString();
+
+      if (directLink) directLink.href = finalGasUrl;
+      if (frame) {
+        frame.addEventListener('load', function () {
+          setTimeout(hideSplash, 320);
+        });
+        frame.src = finalGasUrl;
+      }
+
+      setTimeout(function () {
+        if (splash && !splash.classList.contains('fade-out') && fallbackBox) {
+          fallbackBox.classList.add('show');
+          if (statusText) statusText.textContent = 'Koneksi agak lambat, masih memuat Portal Kelas ' + GRADE_LEVEL + '...';
+        }
+      }, 7000);
+
+      // Jembatan Komunikasi 2 Arah: GAS <-> Wrapper <-> Parent Overlay
+      window.addEventListener('message', function (ev) {
+        if (!ev || !ev.data || typeof ev.data !== 'object') return;
+
+        if (ev.data.type === 'SICIBINAGA_APP_READY') {
+          hideSplash();
+          if (isEmbeddedInDashboard && window.parent) {
+            try { window.parent.postMessage(ev.data, '*'); } catch (e) {}
+          }
+          return;
+        }
+
+        if (ev.data.type === 'SICIBINAGA_V99_NAV_STATE') {
+          const wasLoggedIn = appState.loggedIn;
+          appState = Object.assign({}, appState, ev.data);
+          if (!isEmbeddedInDashboard && appState.loggedIn && !wasLoggedIn) {
+            pushTopCushion(true);
+          }
+          if (isEmbeddedInDashboard && window.parent) {
+            try { window.parent.postMessage(ev.data, '*'); } catch (e) {}
+          }
+          return;
+        }
+
+        if (ev.data.type === 'SICIBINAGA_V99_ANDROID_BACK') {
+          if (frame && frame.contentWindow) {
+            try { frame.contentWindow.postMessage(ev.data, '*'); } catch (e) {}
+          }
+        }
+      });
+
+      function openWrapperExitModal() {
+        const modal = document.getElementById('siciWrapperExitModal');
+        const iconEl = document.getElementById('wrapExitIcon');
+        const glyph = document.getElementById('wrapExitGlyph');
+        const titleEl = document.getElementById('wrapExitTitle');
+        const chipEl = document.getElementById('wrapExitChip');
+        const descEl = document.getElementById('wrapExitDesc');
+        const stayLbl = document.getElementById('wrapStayLabel');
+        const leaveBtn = document.getElementById('wrapLeaveBtn');
+        if (!modal) return;
+
+        if (appState.isExamActive) {
+          iconEl?.classList.add('is-exam');
+          if (glyph) glyph.className = 'fa-solid fa-lock';
+          if (titleEl) titleEl.textContent = 'Ujian CBT Sedang Berlangsung!';
+          if (chipEl) chipEl.textContent = (appState.name || 'Peserta') + ' • Ujian Kelas ' + GRADE_LEVEL;
+          if (descEl) descEl.innerHTML = 'Tombol <b>Kembali / Gesture Back</b> dikunci agar pengerjaan ujian tidak terputus. Tetap fokus sampai menekan tombol <b>Selesai Ujian</b>.';
+          if (stayLbl) stayLbl.textContent = 'Lanjutkan Mengerjakan Ujian';
+          if (leaveBtn) leaveBtn.classList.add('hidden');
+        } else {
+          iconEl?.classList.remove('is-exam');
+          if (glyph) glyph.className = 'fa-solid fa-shield-halved';
+          if (titleEl) titleEl.textContent = 'Ingin Keluar dari Akun SICIBINAGA?';
+          if (chipEl) chipEl.textContent = appState.name
+            ? appState.name + (appState.kelas ? ' • Kelas ' + appState.kelas : '')
+            : 'Kelas ' + GRADE_LEVEL + ' • Sesi Aktif';
+          if (descEl) descEl.innerHTML = 'Anda menekan tombol <b>Kembali</b> atau <b>Gesture Back</b>. Sesi Anda masih aktif &mdash; pilih <b>Tetap di SICIBINAGA</b> agar fokus terjaga dan tidak perlu login ulang.';
+          if (stayLbl) stayLbl.textContent = 'Tetap di SICIBINAGA Kelas ' + GRADE_LEVEL;
+          if (leaveBtn) leaveBtn.classList.remove('hidden');
+        }
+        modal.classList.add('active');
+      }
+
+      window.stayInsideWrapperApp = function () {
+        document.getElementById('siciWrapperExitModal')?.classList.remove('active');
+        pushTopCushion(false);
+      };
+
+      window.logoutFromWrapperPopup = function () {
+        document.getElementById('siciWrapperExitModal')?.classList.remove('active');
+        if (frame && frame.contentWindow) {
+          try { frame.contentWindow.postMessage({ type: 'SICIBINAGA_V100_WRAPPER_LOGOUT' }, '*'); } catch (e) {}
+        }
+        appState.loggedIn = false;
+        appState.isExamActive = false;
+      };
+
+      window.addEventListener('popstate', function () {
+        if (isEmbeddedInDashboard) return;
+        if (!appState.loggedIn && !appState.isExamActive) return;
+        pushTopCushion(false);
+        openWrapperExitModal();
+      });
+
+      window.addEventListener('beforeunload', function (e) {
+        if (isEmbeddedInDashboard) return;
+        if (appState.loggedIn || appState.isExamActive) {
+          e.preventDefault();
+          e.returnValue = 'Sesi SICIBINAGA Kelas ' + GRADE_LEVEL + ' masih aktif.';
+          return e.returnValue;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
